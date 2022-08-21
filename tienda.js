@@ -1,46 +1,33 @@
-const priceInput = document.querySelector('#price');
-const discountInput = document.querySelector('#discount');
-const couponInput = document.querySelector('#coupon')
-const answerCalculate = document.querySelector('#answer');
-const btnCalculate = document.querySelector('#btnC');
-btnCalculate.addEventListener('click', calculatePercent);
+const inputPrice=document.querySelector('#price');
+const inputCoupon=document.querySelector('#coupon');
+const btn=document.querySelector('#calcular');
+const pResult=document.querySelector('#result');
+btn.addEventListener('click',calcularPrecioConDescuento);
+const couponsList=[];
+couponsList.push({name:'JuanDC_es_Batman',discount:30,});
+couponsList.push({name:'pero_es_un_secreto',discount:25,});
+couponsList.push({name:'no_le_digas_a_nadie',discount:15,});
 
-/*class coupon{
-    constructor(name, discount){
-        this.name = name,
-        this.discount = discount
+
+function calcularPrecioConDescuento(){
+    const price=Number(inputPrice.value);
+    const coupon=inputCoupon.value;
+
+    if(!price||!coupon){
+        pResult.innerText='CHANCLA por favor llena el formulario';
+        return;
     }
+    let discount;
+    function isCouponInArray(couponElement){
+        return couponElement.name==coupon;
+    }
+const couponInArray=couponsList.find(isCouponInArray);
+    if(couponInArray){
+      discount=couponInArray.discount;
+    }else{
+        pResult.innerText='El cupón no es válido';
+        return;
+    }
+console.log({coupon,discount,couponInArray,couponsList,});
+const newPrice=(price*(100-discount))/100;pResult.innerText='El nuevo precio con descuento es $'+newPrice;
 }
-const coupons = [];
-
-//coupons.push(new coupon('gold', 50), new coupon('silver', 30))
-*/
-
-const coupons= {
-    gold: 30,
-    silver: 25,
-    bronze: 10
-}
-
-function calculatePercent(){
- //(p * (100 -d )) / 100
-
- const price=Number(inputPrice.value);
- const coupon = couponInput.value;
-
- console.log({price,discount});
-  let discount;
-
-  if(coupons[coupon]){
-    discount = coupons[coupn];
-  }else{
-    answerCalculate.innerText = "Cupón no válido"
-  }
-
-
-
- //const validCoupon = coupons.find(item => item.name == couponInput.value);
-
-
-}
-console.log(coupons);
